@@ -7,25 +7,34 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C0A98061C569F9B002283D0 /* UIStoryboard+MainStoryboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0A98051C569F9B002283D0 /* UIStoryboard+MainStoryboard.m */; };
+		0C0A98091C56A0B2002283D0 /* UIStoryboard+ClassIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0A98081C56A0B2002283D0 /* UIStoryboard+ClassIdentifier.m */; };
+		0C0A980C1C56A38A002283D0 /* TaskListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0A980B1C56A38A002283D0 /* TaskListTableViewController.m */; };
 		0C867FA61C567AA0005CE5E6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C867FA51C567AA0005CE5E6 /* main.m */; };
 		0C867FA91C567AA0005CE5E6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C867FA81C567AA0005CE5E6 /* AppDelegate.m */; };
-		0C867FAC1C567AA0005CE5E6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C867FAB1C567AA0005CE5E6 /* ViewController.m */; };
 		0C867FAF1C567AA0005CE5E6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C867FAD1C567AA0005CE5E6 /* Main.storyboard */; };
 		0C867FB11C567AA0005CE5E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C867FB01C567AA0005CE5E6 /* Assets.xcassets */; };
 		0C867FB41C567AA0005CE5E6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C867FB21C567AA0005CE5E6 /* LaunchScreen.storyboard */; };
+		0C867FBD1C568AEE005CE5E6 /* HomePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C867FBC1C568AEE005CE5E6 /* HomePageViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0C0A98041C569F9B002283D0 /* UIStoryboard+MainStoryboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIStoryboard+MainStoryboard.h"; sourceTree = "<group>"; };
+		0C0A98051C569F9B002283D0 /* UIStoryboard+MainStoryboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIStoryboard+MainStoryboard.m"; sourceTree = "<group>"; };
+		0C0A98071C56A0B2002283D0 /* UIStoryboard+ClassIdentifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIStoryboard+ClassIdentifier.h"; sourceTree = "<group>"; };
+		0C0A98081C56A0B2002283D0 /* UIStoryboard+ClassIdentifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIStoryboard+ClassIdentifier.m"; sourceTree = "<group>"; };
+		0C0A980A1C56A38A002283D0 /* TaskListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskListTableViewController.h; sourceTree = "<group>"; };
+		0C0A980B1C56A38A002283D0 /* TaskListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskListTableViewController.m; sourceTree = "<group>"; };
 		0C867FA11C567A9F005CE5E6 /* Tasks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tasks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C867FA51C567AA0005CE5E6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0C867FA71C567AA0005CE5E6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0C867FA81C567AA0005CE5E6 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		0C867FAA1C567AA0005CE5E6 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		0C867FAB1C567AA0005CE5E6 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		0C867FAE1C567AA0005CE5E6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0C867FB01C567AA0005CE5E6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0C867FB31C567AA0005CE5E6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0C867FB51C567AA0005CE5E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0C867FBB1C568AEE005CE5E6 /* HomePageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomePageViewController.h; sourceTree = "<group>"; };
+		0C867FBC1C568AEE005CE5E6 /* HomePageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomePageViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,9 +69,15 @@
 			children = (
 				0C867FA71C567AA0005CE5E6 /* AppDelegate.h */,
 				0C867FA81C567AA0005CE5E6 /* AppDelegate.m */,
-				0C867FAA1C567AA0005CE5E6 /* ViewController.h */,
-				0C867FAB1C567AA0005CE5E6 /* ViewController.m */,
 				0C867FAD1C567AA0005CE5E6 /* Main.storyboard */,
+				0C867FBB1C568AEE005CE5E6 /* HomePageViewController.h */,
+				0C867FBC1C568AEE005CE5E6 /* HomePageViewController.m */,
+				0C0A980A1C56A38A002283D0 /* TaskListTableViewController.h */,
+				0C0A980B1C56A38A002283D0 /* TaskListTableViewController.m */,
+				0C0A98041C569F9B002283D0 /* UIStoryboard+MainStoryboard.h */,
+				0C0A98051C569F9B002283D0 /* UIStoryboard+MainStoryboard.m */,
+				0C0A98071C56A0B2002283D0 /* UIStoryboard+ClassIdentifier.h */,
+				0C0A98081C56A0B2002283D0 /* UIStoryboard+ClassIdentifier.m */,
 				0C867FB01C567AA0005CE5E6 /* Assets.xcassets */,
 				0C867FB21C567AA0005CE5E6 /* LaunchScreen.storyboard */,
 				0C867FB51C567AA0005CE5E6 /* Info.plist */,
@@ -150,9 +165,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C867FAC1C567AA0005CE5E6 /* ViewController.m in Sources */,
 				0C867FA91C567AA0005CE5E6 /* AppDelegate.m in Sources */,
 				0C867FA61C567AA0005CE5E6 /* main.m in Sources */,
+				0C0A980C1C56A38A002283D0 /* TaskListTableViewController.m in Sources */,
+				0C867FBD1C568AEE005CE5E6 /* HomePageViewController.m in Sources */,
+				0C0A98091C56A0B2002283D0 /* UIStoryboard+ClassIdentifier.m in Sources */,
+				0C0A98061C569F9B002283D0 /* UIStoryboard+MainStoryboard.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -303,6 +321,7 @@
 				0C867FBA1C567AA0005CE5E6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

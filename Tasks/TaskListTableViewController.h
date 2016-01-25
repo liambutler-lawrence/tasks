@@ -1,5 +1,5 @@
 //
-//  AppDelegate.h
+//  TaskListTableViewController.h
 //  Tasks
 //
 //  Created by Liam Butler-Lawrence on 1/25/16.
@@ -8,9 +8,6 @@
 
 @import UIKit;
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
-
-@property (strong, nonatomic) UIWindow *window;
+@interface TaskListTableViewController : UITableViewController
 
 @end
-
