@@ -8,6 +8,12 @@
 
 @import UIKit;
 
+#import "TaskManager.h"
+
 @interface TaskListTableViewController : UITableViewController
+
+// Must be set before the table view loads
+// Used to query the TaskManager for the tasks to display
+@property (strong, nonatomic) NSString *taskListTitle;
 
 @end
