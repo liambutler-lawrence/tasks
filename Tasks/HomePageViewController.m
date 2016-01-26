@@ -12,6 +12,7 @@
 @interface HomePageViewController ()
 
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
+@property (weak, nonatomic) UIPageViewController *pageViewController;
 
 @end
 
@@ -22,7 +23,15 @@
 
 - (IBAction)infoButtonTapped:(UIBarButtonItem *)sender {
 }
+
 - (IBAction)switchListsButtonTapped:(UIBarButtonItem *)sender {
+    
+    SwitchTaskListsTableViewController *switchListsTableViewController = [[UIStoryboard mainStoryboard] instantiateViewControllerWithClassIdentifier:[SwitchTaskListsTableViewController class]];
+    switchListsTableViewController.delegate = self;
+    
+    UINavigationController *createTaskNavigationController = [[UINavigationController alloc] initWithRootViewController:switchListsTableViewController];
+    
+    [self presentViewController:createTaskNavigationController animated:YES completion:nil];
 }
 
 - (IBAction)addTaskButtonTapped:(UIBarButtonItem *)sender {
@@ -30,12 +39,19 @@
     TaskViewController *createTaskViewController = [[UIStoryboard mainStoryboard] instantiateViewControllerWithClassIdentifier:[TaskViewController class]];
     UINavigationController *createTaskNavigationController = [[UINavigationController alloc] initWithRootViewController:createTaskViewController];
     
-    createTaskViewController.taskListTitle = @"Work";
+    NSString *taskListTitle = self.taskListTitle;
+    if ([taskListTitle isEqualToString:ALL_TASKS]) {
+        createTaskViewController.taskListTitle = NO_LIST;
+    } else {
+        createTaskViewController.taskListTitle = taskListTitle;
+    }
     createTaskViewController.taskIndex = NEW_TASK;
     
     [self presentViewController:createTaskNavigationController animated:YES completion:nil];
 }
+
 - (IBAction)removeTaskButtonTapped:(UIBarButtonItem *)sender {
+    
 }
 
 - (IBAction)saveListButtonTapped:(UIBarButtonItem *)sender {
@@ -54,19 +70,72 @@
 
 #pragma mark Delegate
 
-
+- (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray<UIViewController *> *)previousViewControllers transitionCompleted:(BOOL)completed {
+    if (completed) {
+        self.navigationItem.title = self.taskListTitle;
+    }
+}
 
 #pragma mark Data Source
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController {
-    TaskListTableViewController *contentViewController = [[UIStoryboard mainStoryboard] instantiateViewControllerWithClassIdentifier:[TaskListTableViewController class]];
-    return contentViewController;
+    return [self newViewControllerFromCurrentViewController:viewController
+                                                  direction:UIPageViewControllerNavigationDirectionReverse];
 }
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController {
     
-    TaskListTableViewController *contentViewController = [[UIStoryboard mainStoryboard] instantiateViewControllerWithClassIdentifier:[TaskListTableViewController class]];
-    return contentViewController;
+    return [self newViewControllerFromCurrentViewController:viewController
+                                                  direction:UIPageViewControllerNavigationDirectionForward];
+
+}
+
+#pragma mark - Helper Methods
+
+- (UIViewController *)newViewControllerFromCurrentViewController: (UIViewController *)viewController direction: (UIPageViewControllerNavigationDirection)direction {
+    
+    TaskListTableViewController *newContentViewController = [[UIStoryboard mainStoryboard] instantiateViewControllerWithClassIdentifier:[TaskListTableViewController class]];
+    
+    NSArray<NSString *> *taskListTitles = [[TaskManager sharedManager] taskListTitles];
+    NSInteger currentTitleIndex = [taskListTitles indexOfObject:((TaskListTableViewController *)viewController).taskListTitle];
+    
+    NSInteger newTitleIndex;
+    switch (direction) {
+        case UIPageViewControllerNavigationDirectionForward:
+            
+            newTitleIndex = currentTitleIndex + 1;
+            if (newTitleIndex >= taskListTitles.count) {
+                return nil;
+            }
+            break;
+        case UIPageViewControllerNavigationDirectionReverse:
+            
+            newTitleIndex = currentTitleIndex - 1;
+            if (newTitleIndex < 0) {
+                return nil;
+            }
+            break;
+    }
+    newContentViewController.taskListTitle = taskListTitles[newTitleIndex];
+    
+    return newContentViewController;
+}
+
+#pragma mark - Switch Task Lists Table View Controller Delegate
+
+- (NSString *)taskListTitle {
+    
+    TaskListTableViewController *viewController = (TaskListTableViewController *)self.pageViewController.viewControllers.firstObject;
+    return viewController.taskListTitle;
+}
+
+- (void)setTaskListTitle: (NSString *)title {
+    
+    TaskListTableViewController *newContentViewController = [[UIStoryboard mainStoryboard] instantiateViewControllerWithClassIdentifier:[TaskListTableViewController class]];
+    newContentViewController.taskListTitle = title;
+
+    [self.pageViewController setViewControllers:@[newContentViewController] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+    self.navigationItem.title = title;
 }
 
 #pragma mark - Navigation
@@ -76,18 +145,17 @@
     // The container view relationship between this view controller and the PageViewController is defined as an 'embed' segue
     // Therefore, prepareForSegue is called before loading the container view, allowing the PageViewController to be setup
     if ([segue.identifier isEqualToString:@"PageViewControllerEmbed"]) {
-        UIPageViewController *pageViewController = segue.destinationViewController;
+        self.pageViewController = segue.destinationViewController;
         
-        pageViewController.delegate = self;
-        pageViewController.dataSource = self;
+        self.pageViewController.delegate = self;
+        self.pageViewController.dataSource = self;
         
         // The PageViewController must be given at least one initial view controller to display. View controllers displayed in response to right/left swipes are set above in the Page View Controller: Data Source section
         TaskListTableViewController *contentViewController = [[UIStoryboard mainStoryboard] instantiateViewControllerWithClassIdentifier:[TaskListTableViewController class]];
         
         
         
-        // temporary test data input (to be removed when + button is implemented)
-        
+        // temporary test data input (to be removed when .plist import is implemented)
         
         NSString *taskListTitle = @"Work";
         [[TaskManager sharedManager] addTaskListWithTitle:taskListTitle];
@@ -108,8 +176,9 @@
         
         
         contentViewController.taskListTitle = ALL_TASKS;
+        self.navigationItem.title = contentViewController.taskListTitle;
     
-        [pageViewController setViewControllers:@[contentViewController] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+        [self.pageViewController setViewControllers:@[contentViewController] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
     }
 }
 

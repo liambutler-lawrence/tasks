@@ -18,7 +18,7 @@ extern NSInteger const NEW_TASK;
 
 @interface TaskViewController : UIViewController <UITextFieldDelegate>
 
-// Both of these properties must be set before the table view loads
+// Both of these properties must be set before the view loads
 // Setting taskListTitle to NEW_TASK enables 'create' mode (using the specified task list)
 // Otherwise, 'edit' mode is enabled and these properties are used to query the TaskManager for the task to display
 @property (strong, nonatomic) NSString *taskListTitle;

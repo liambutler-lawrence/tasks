@@ -45,17 +45,26 @@ typedef NSMutableDictionary<NSString *, TaskList *> TaskListObject;
 }
 
 
-#pragma mark - Manipulating task lists
+#pragma mark - Querying task lists
+
+// Returns an array containing the titles of every task list in alphabetical order
+// ALL_TASKS is always included in returned array at index 0
+- (NSArray<NSString *> *)taskListTitles {
+    NSMutableArray<NSString *> *titles = [self.taskLists.allKeys mutableCopy];
+    
+    [titles sortUsingSelector:@selector(caseInsensitiveCompare:)];
+    [titles removeObject:NO_LIST];
+    [titles insertObject:ALL_TASKS atIndex:0];
+    
+    return [titles copy];
+}
 
 // Returns the task list with specified title; nil if a task list with the specified title could not be found
 // Passing ALL_TASKS for title will return a TaskList containing every task (including uncategorized tasks)
-// Passing NO_LIST for title will always fail
+// Passing NO_LIST for title will return a TaskList containing only uncategorized tasks
 - (TaskList *)taskListWithTitle: (NSString *)title {
     
-    if ([title isEqualToString: NO_LIST]) {
-        return nil;
-        
-    } else if ([title isEqualToString: ALL_TASKS]) {
+    if ([title isEqualToString: ALL_TASKS]) {
         TaskList *allTasks = [[TaskList alloc] init];
         [self.taskLists enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull title, TaskList * _Nonnull tasks, BOOL * _Nonnull stop) {
             [allTasks addObjectsFromArray:tasks];
@@ -66,6 +75,9 @@ typedef NSMutableDictionary<NSString *, TaskList *> TaskListObject;
         return self.taskLists[title];
     }
 }
+
+#pragma mark - Manipulating task lists
+
 
 // Adds a task list with specified title
 // Returns YES if task list was successfully added; NO if a task list with the specified title already exists

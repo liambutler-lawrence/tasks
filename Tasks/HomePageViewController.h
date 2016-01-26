@@ -9,7 +9,8 @@
 @import UIKit;
 
 #import "TaskListTableViewController.h"
+#import "SwitchTaskListsTableViewController.h"
 
-@interface HomePageViewController : UIViewController <UIPageViewControllerDataSource, UIPageViewControllerDelegate>
+@interface HomePageViewController : UIViewController <UIPageViewControllerDataSource, UIPageViewControllerDelegate, SwitchTaskListsTableViewControllerDelegate>
 
 @end

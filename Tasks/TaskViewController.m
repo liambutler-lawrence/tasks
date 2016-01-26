@@ -66,11 +66,11 @@ NSInteger const NEW_TASK = -1;
     
     self.navigationItem.title = @"New Task";
     
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:@"Add" style:UIBarButtonItemStyleDone target:self action:NSSelectorFromString(@"doneButtonTapped:")];
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:@"Add" style:UIBarButtonItemStyleDone target:self action:@selector(doneButtonTapped:)];
     addButton.enabled = NO;
     self.navigationItem.rightBarButtonItem = addButton;
     
-    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:NSSelectorFromString(@"cancelButtonTapped:")];
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancelButtonTapped:)];
     self.navigationItem.leftBarButtonItem = cancelButton;
 }
 
