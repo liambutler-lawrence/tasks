@@ -17,7 +17,8 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    
+    [self customizeAppAppearance];
     return YES;
 }
 
@@ -41,6 +42,40 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (void)customizeAppAppearance {
+    
+    UIColor *customPurpleColor = [UIColor colorWithHue:0.728 saturation:0.42 brightness:0.49 alpha:1];
+    
+    
+    // Customize UINavigationBar appearance
+    UINavigationBar *navigationBarAppearance = [UINavigationBar appearance];
+    
+    // Even though tint colors are set manually (below), 'Black' style is needed to make the status bar text appear in white.
+    [navigationBarAppearance setBarStyle:UIBarStyleBlack];
+    
+    [navigationBarAppearance setBarTintColor:customPurpleColor];
+    [navigationBarAppearance setTranslucent:NO];
+    [navigationBarAppearance setTintColor:[UIColor whiteColor]];
+    
+    // if titleTextAttributes dictionary does not exist, initialize an empty dictionary
+    if ([navigationBarAppearance titleTextAttributes] == nil) {
+        [navigationBarAppearance setTitleTextAttributes:[[NSDictionary<NSString *, id> alloc] init]];
+    }
+    
+    // make mutable copy of titleTextAttributes to set foreground color; writeback non-mutable copy of updated dictionary
+    NSMutableDictionary<NSString *, id> *attributes = [[navigationBarAppearance titleTextAttributes] mutableCopy];
+    attributes[NSForegroundColorAttributeName] = [UIColor whiteColor];
+    [navigationBarAppearance setTitleTextAttributes:[attributes copy]];
+    
+    
+    // Customize UIToolbar appearance
+    UIToolbar *toolbarAppearance = [UIToolbar appearance];
+    
+    [toolbarAppearance setBarTintColor:customPurpleColor];
+    [toolbarAppearance setTranslucent:NO];
+    [toolbarAppearance setTintColor:[UIColor whiteColor]];
 }
 
 @end

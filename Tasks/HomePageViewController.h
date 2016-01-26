@@ -9,8 +9,6 @@
 @import UIKit;
 
 #import "TaskListTableViewController.h"
-#import "UIStoryboard+MainStoryboard.h"
-#import "UIStoryboard+ClassIdentifier.h"
 
 @interface HomePageViewController : UIViewController <UIPageViewControllerDataSource, UIPageViewControllerDelegate>
 

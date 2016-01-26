@@ -127,6 +127,24 @@
             </objects>
             <point key="canvasLocation" x="1067" y="1834"/>
         </scene>
+        <!--Task View Controller-->
+        <scene sceneID="x4H-AS-2xO">
+            <objects>
+                <viewController storyboardIdentifier="TaskViewController" id="p6X-4k-tiv" customClass="TaskViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="AQ7-HP-TQj"/>
+                        <viewControllerLayoutGuide type="bottom" id="05X-6v-lMf"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="uOb-k3-uax">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XXb-Qd-7Sa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1811" y="374"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="Tae-NQ-JDY">
             <objects>

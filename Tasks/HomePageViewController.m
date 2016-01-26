@@ -20,6 +20,11 @@
 }
 
 - (IBAction)addTaskButtonTapped:(UIBarButtonItem *)sender {
+    
+    TaskViewController *createTaskViewController = [[UIStoryboard mainStoryboard] instantiateViewControllerWithClassIdentifier:[TaskViewController class]];
+    UINavigationController *createTaskNavigationController = [[UINavigationController alloc] initWithRootViewController:createTaskViewController];
+    
+    [self presentViewController:createTaskNavigationController animated:YES completion:nil];
 }
 - (IBAction)removeTaskButtonTapped:(UIBarButtonItem *)sender {
 }
