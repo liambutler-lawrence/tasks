@@ -34,7 +34,6 @@
 		0C0A98121C56BD0F002283D0 /* TaskManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TaskManager.m; path = Model/TaskManager.m; sourceTree = "<group>"; };
 		0C0A98141C56F4AF002283D0 /* TaskViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskViewController.h; sourceTree = "<group>"; };
 		0C0A98151C56F4AF002283D0 /* TaskViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskViewController.m; sourceTree = "<group>"; };
-		0C0A98181C56F59D002283D0 /* Categories.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Categories.h; sourceTree = "<group>"; };
 		0C867FA11C567A9F005CE5E6 /* Tasks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tasks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C867FA51C567AA0005CE5E6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0C867FA71C567AA0005CE5E6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -72,7 +71,6 @@
 		0C0A98171C56F4BA002283D0 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				0C0A98181C56F59D002283D0 /* Categories.h */,
 				0C0A98041C569F9B002283D0 /* UIStoryboard+MainStoryboard.h */,
 				0C0A98051C569F9B002283D0 /* UIStoryboard+MainStoryboard.m */,
 				0C0A98071C56A0B2002283D0 /* UIStoryboard+ClassIdentifier.h */,

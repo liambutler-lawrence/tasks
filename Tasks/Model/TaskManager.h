@@ -9,10 +9,12 @@
 @import Foundation;
 #import "Task.h"
 
+
 typedef NSMutableArray<Task *> TaskList;
-typedef NSMutableDictionary<NSString *, TaskList *> TaskListObject;
 
 extern NSString *const ALL_TASKS;
+extern NSString *const NO_LIST;
+
 
 @interface TaskManager : NSObject
 
@@ -21,16 +23,18 @@ extern NSString *const ALL_TASKS;
 + (instancetype)sharedManager;
 
 // Returns the task list with specified title; nil if a task list with the specified title could not be found
-// Passing ALL_TASKS for title will return a TaskList containing every task stored in a task list
+// Passing ALL_TASKS for title will return a TaskList containing every task (including uncategorized tasks)
+// Passing NO_LIST for title will always fail
 - (TaskList *)taskListWithTitle: (NSString *)title;
 
 // Adds a task list with specified title
 // Returns YES if task list was successfully added; NO if a task list with the specified title already exists
-// Passing ALL_TASKS for title will always fail
+// Passing ALL_TASKS or NO_LIST for title will always fail
 - (BOOL)addTaskListWithTitle: (NSString *)title;
 
 // Adds a task to the task list with specified title
 // Returns YES if task was successfully added; NO if a task list with the specified title could not be found
+// Passing NO_LIST for title will add an uncategorized task
 // Passing ALL_TASKS for title will always fail
 - (BOOL)addTask: (Task *)task toTaskListWithTitle: (NSString *)title;
 

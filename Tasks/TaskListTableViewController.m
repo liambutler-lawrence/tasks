@@ -15,6 +15,8 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+    [self.tableView reloadData];
+    
     // Bug in iOS (unresolved as of 9.2): does not reliably deselect rows when returning to table view from 'pushed' view controller (specifically when swiping slowly from left edge)
     // Workaround: manually deselect any row still selected before view appears
     NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
@@ -26,6 +28,7 @@
 #pragma mark Delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+
     TaskViewController *detailViewController = [[UIStoryboard mainStoryboard] instantiateViewControllerWithClassIdentifier:[TaskViewController class]];
     
     detailViewController.taskListTitle = self.taskListTitle;

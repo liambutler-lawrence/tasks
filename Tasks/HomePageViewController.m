@@ -8,11 +8,17 @@
 
 #import "HomePageViewController.h"
 
+
 @interface HomePageViewController ()
+
+@property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
 
 @end
 
+
 @implementation HomePageViewController
+
+#pragma mark - Storyboard Actions
 
 - (IBAction)infoButtonTapped:(UIBarButtonItem *)sender {
 }
@@ -24,6 +30,9 @@
     TaskViewController *createTaskViewController = [[UIStoryboard mainStoryboard] instantiateViewControllerWithClassIdentifier:[TaskViewController class]];
     UINavigationController *createTaskNavigationController = [[UINavigationController alloc] initWithRootViewController:createTaskViewController];
     
+    createTaskViewController.taskListTitle = @"Work";
+    createTaskViewController.taskIndex = NEW_TASK;
+    
     [self presentViewController:createTaskNavigationController animated:YES completion:nil];
 }
 - (IBAction)removeTaskButtonTapped:(UIBarButtonItem *)sender {
@@ -31,6 +40,16 @@
 
 - (IBAction)saveListButtonTapped:(UIBarButtonItem *)sender {
 }
+
+#pragma mark - View Controller
+
+- (void)viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
+    
+    // Notifies toolbar to redraw if needed (specifically, when self.view transitions to/from compact height)
+    [self.toolbar invalidateIntrinsicContentSize];
+}
+
 #pragma mark - Page View Controller
 
 #pragma mark Delegate
@@ -40,7 +59,6 @@
 #pragma mark Data Source
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController {
-    
     TaskListTableViewController *contentViewController = [[UIStoryboard mainStoryboard] instantiateViewControllerWithClassIdentifier:[TaskListTableViewController class]];
     return contentViewController;
 }
@@ -55,15 +73,15 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
-    // The container view relationship between this VC and the PageVC is defined as an 'embed' segue
-    // Therefore, prepareForSegue is called before loading the container view, allowing the PageVC to be setup
+    // The container view relationship between this view controller and the PageViewController is defined as an 'embed' segue
+    // Therefore, prepareForSegue is called before loading the container view, allowing the PageViewController to be setup
     if ([segue.identifier isEqualToString:@"PageViewControllerEmbed"]) {
         UIPageViewController *pageViewController = segue.destinationViewController;
         
         pageViewController.delegate = self;
         pageViewController.dataSource = self;
         
-        // The PageVC must be given at least one initial VC to display. VCs displayed in response to right/left swipes are set above in the Page View Controller: Data Source section
+        // The PageViewController must be given at least one initial view controller to display. View controllers displayed in response to right/left swipes are set above in the Page View Controller: Data Source section
         TaskListTableViewController *contentViewController = [[UIStoryboard mainStoryboard] instantiateViewControllerWithClassIdentifier:[TaskListTableViewController class]];
         
         

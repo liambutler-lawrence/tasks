@@ -76,6 +76,12 @@
     [toolbarAppearance setBarTintColor:customPurpleColor];
     [toolbarAppearance setTranslucent:NO];
     [toolbarAppearance setTintColor:[UIColor whiteColor]];
+    
+    
+    // Customize UISegmentedControl appearance
+    UISegmentedControl *segmentedControlAppearance = [UISegmentedControl appearance];
+    
+    [segmentedControlAppearance setTintColor:customPurpleColor];
 }
 
 @end

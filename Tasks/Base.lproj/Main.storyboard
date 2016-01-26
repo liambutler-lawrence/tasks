@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Task List-->
@@ -77,6 +78,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="toolbar" destination="7WA-Nl-RFt" id="sSb-fV-O27"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6jG-i9-z7a" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -138,8 +142,77 @@
                     <view key="view" contentMode="scaleToFill" id="uOb-k3-uax">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wsR-wg-Pg5">
+                                <rect key="frame" x="75" y="40" width="505" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done"/>
+                                <connections>
+                                    <outlet property="delegate" destination="p6X-4k-tiv" id="R44-Ye-Lx0"/>
+                                </connections>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="onW-uM-o9N">
+                                <rect key="frame" x="20" y="44" width="45" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Priority" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lts-tI-zKC">
+                                <rect key="frame" x="20" y="94" width="55" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="03O-FO-nE6">
+                                <rect key="frame" x="85" y="90" width="495" height="29"/>
+                                <segments>
+                                    <segment title="Low"/>
+                                    <segment title="Medium"/>
+                                    <segment title="High"/>
+                                </segments>
+                            </segmentedControl>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="List" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NdC-z5-ryk">
+                                <rect key="frame" x="20" y="138" width="27.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="List Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="atC-94-whp">
+                                <rect key="frame" x="57.5" y="138" width="65" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="onW-uM-o9N" firstAttribute="leading" secondItem="uOb-k3-uax" secondAttribute="leadingMargin" id="0SJ-mN-uuV"/>
+                            <constraint firstItem="wsR-wg-Pg5" firstAttribute="top" secondItem="AQ7-HP-TQj" secondAttribute="bottom" constant="20" id="0ZM-N4-tu5"/>
+                            <constraint firstItem="atC-94-whp" firstAttribute="top" secondItem="03O-FO-nE6" secondAttribute="bottom" constant="20" id="2oy-10-rEx"/>
+                            <constraint firstItem="atC-94-whp" firstAttribute="leading" secondItem="NdC-z5-ryk" secondAttribute="trailing" constant="10" id="7TK-kb-BE2"/>
+                            <constraint firstItem="onW-uM-o9N" firstAttribute="centerY" secondItem="wsR-wg-Pg5" secondAttribute="centerY" id="PYM-Ii-Bnf"/>
+                            <constraint firstItem="03O-FO-nE6" firstAttribute="leading" secondItem="lts-tI-zKC" secondAttribute="trailing" constant="10" id="Qcb-TB-hdF"/>
+                            <constraint firstItem="03O-FO-nE6" firstAttribute="top" secondItem="wsR-wg-Pg5" secondAttribute="bottom" constant="20" id="RQP-uZ-NNF"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="wsR-wg-Pg5" secondAttribute="trailing" id="Yae-14-pgr"/>
+                            <constraint firstItem="lts-tI-zKC" firstAttribute="centerY" secondItem="03O-FO-nE6" secondAttribute="centerY" id="jbh-wy-5IW"/>
+                            <constraint firstItem="NdC-z5-ryk" firstAttribute="centerY" secondItem="atC-94-whp" secondAttribute="centerY" id="kit-HO-xh0"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="lts-tI-zKC" secondAttribute="leading" id="p33-Yd-fyT"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="03O-FO-nE6" secondAttribute="trailing" id="ph8-NI-Vwc"/>
+                            <constraint firstItem="wsR-wg-Pg5" firstAttribute="leading" secondItem="onW-uM-o9N" secondAttribute="trailing" constant="10" id="rYF-Eb-1mV"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="NdC-z5-ryk" secondAttribute="leading" id="vpA-gi-dZf"/>
+                            <constraint firstItem="onW-uM-o9N" firstAttribute="top" secondItem="AQ7-HP-TQj" secondAttribute="bottom" constant="4" id="yu7-1N-kbu"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="yu7-1N-kbu"/>
+                            </mask>
+                        </variation>
                     </view>
+                    <connections>
+                        <outlet property="listTitleLabel" destination="atC-94-whp" id="2bx-0Y-LXQ"/>
+                        <outlet property="nameTextField" destination="wsR-wg-Pg5" id="kZ7-Xe-DTy"/>
+                        <outlet property="prioritySegmentedControl" destination="03O-FO-nE6" id="YzU-Dm-m2d"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XXb-Qd-7Sa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
