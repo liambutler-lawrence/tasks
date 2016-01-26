@@ -78,13 +78,25 @@ typedef NSMutableDictionary<NSString *, TaskList *> TaskListObject;
 
 #pragma mark - Manipulating task lists
 
+// Removes the task list with specified title AND all tasks stored in that task list.
+// Returns YES if task list was successfully removed; NO if a task list with the specified title could not be found
+// Passing ALL_TASKS or NO_LIST for title will always fail
+- (BOOL)removeTaskListWithTitle: (NSString *)title {
+    
+    if ([title isEqualToString: ALL_TASKS] || [title isEqualToString: NO_LIST]) {
+        return NO;
+    } else {
+        [self.taskLists removeObjectForKey:title];
+        return YES;
+    }
+}
 
 // Adds a task list with specified title
 // Returns YES if task list was successfully added; NO if a task list with the specified title already exists
 // Passing ALL_TASKS or NO_LIST for title will always fail
 - (BOOL)addTaskListWithTitle: (NSString *)title {
     
-    if ([title isEqualToString: ALL_TASKS] || [title isEqualToString: NO_LIST] ||[self taskListWithTitle:title] != nil) {
+    if ([title isEqualToString: ALL_TASKS] || [title isEqualToString: NO_LIST] || [self taskListWithTitle:title] != nil) {
         return NO;
     } else {
         self.taskLists[title] = [[TaskList alloc] init];

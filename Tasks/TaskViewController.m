@@ -66,7 +66,7 @@ NSInteger const NEW_TASK = -1;
     
     self.navigationItem.title = @"New Task";
     
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:@"Add" style:UIBarButtonItemStyleDone target:self action:@selector(doneButtonTapped:)];
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:@"Add" style:UIBarButtonItemStyleDone target:self action:@selector(addButtonTapped:)];
     addButton.enabled = NO;
     self.navigationItem.rightBarButtonItem = addButton;
     
@@ -76,7 +76,7 @@ NSInteger const NEW_TASK = -1;
 
 #pragma mark - Target/Action Methods
 
-- (void)doneButtonTapped: (UIBarButtonItem *) sender {
+- (void)addButtonTapped: (UIBarButtonItem *)sender {
     
     TaskPriority newTaskPriority = self.prioritySegmentedControl.selectedSegmentIndex;
     Task *newTask = [[Task alloc] initWithName:self.nameTextField.text priority:newTaskPriority];
@@ -85,7 +85,7 @@ NSInteger const NEW_TASK = -1;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)cancelButtonTapped: (UIBarButtonItem *) sender {
+- (void)cancelButtonTapped: (UIBarButtonItem *)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

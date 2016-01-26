@@ -20,6 +20,11 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (IBAction)addButtonTapped:(UIBarButtonItem *)sender {
+    [self createNewTaskList];
+}
+
+    
 //#pragma mark - View Controller
 //
 //- (void)viewDidLoad {
@@ -32,16 +37,73 @@
 //    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 //}
 
+#pragma mark - Task List Manipulation Methods
+
+- (void)createNewTaskList {
+    UIAlertController *newListAlertController = [UIAlertController alertControllerWithTitle:@"New List"
+                                                                                    message:@"Please enter the name of the list."
+                                                                             preferredStyle:UIAlertControllerStyleAlert];
+    
+    [newListAlertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.autocapitalizationType = UITextAutocapitalizationTypeWords;
+        textField.returnKeyType = UIReturnKeyDone;
+    }];
+    
+    UIAlertAction *addAction = [UIAlertAction actionWithTitle:@"Add"
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction * _Nonnull action) {
+                                                          
+                                                          NSString *newListTitle = newListAlertController.textFields.firstObject.text;
+                                                          if ([[TaskManager sharedManager] addTaskListWithTitle:newListTitle]) {
+                                                              [self newTaskListCreatedWithTitle:newListTitle];
+                                                          } else {
+                                                              [self newTaskListCreationFailed];
+                                                          }
+                                                      }];
+    [newListAlertController addAction:addAction];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:^(UIAlertAction * _Nonnull action) {
+                                                             [newListAlertController.textFields.firstObject resignFirstResponder];
+                                                         }];
+    [newListAlertController addAction:cancelAction];
+    
+    [self presentViewController:newListAlertController animated:YES completion:nil];
+}
+
+- (void)newTaskListCreatedWithTitle: (NSString *)newTaskListTitle {
+    
+    NSArray <NSString *> *taskListTitles = [[TaskManager sharedManager] taskListTitles];
+    NSInteger selectedTaskListIndex = [taskListTitles indexOfObject:newTaskListTitle];
+    
+    NSIndexPath *newTaskListIndexPath = [NSIndexPath indexPathForRow:selectedTaskListIndex inSection:0]; // All task lists are presented in a single section
+    [self.tableView insertRowsAtIndexPaths:@[newTaskListIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+- (void)newTaskListCreationFailed {
+    UIAlertController *errorAlertController = [UIAlertController alertControllerWithTitle:@"List Cannot Be Added"
+                                                                                  message:@"The name you entered is already in use or is reserved. Please choose a different name."
+                                                                           preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK"
+                                                       style:UIAlertActionStyleCancel
+                                                     handler:nil];
+    [errorAlertController addAction:okAction];
+    [self presentViewController:errorAlertController animated:YES completion:nil];
+}
+
+
 #pragma mark - Table View
 
 #pragma mark Delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    NSArray <NSString *> *taskListTitles = [[TaskManager sharedManager] taskListTitles];
+    NSString *selectedTaskListTitle = taskListTitles[indexPath.row];
     
-    if (![cell.textLabel.text isEqualToString:self.delegate.taskListTitle]) {
-        self.delegate.taskListTitle = cell.textLabel.text;
+    if (![selectedTaskListTitle isEqualToString:self.delegate.taskListTitle]) {
+        self.delegate.taskListTitle = selectedTaskListTitle;
         [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
@@ -56,7 +118,6 @@
     NSInteger taskListCount = [[TaskManager sharedManager] taskListTitles].count;
     return taskListCount;
 }
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -80,25 +141,45 @@
 }
 
 
-/*
-// Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+    
+    NSArray <NSString *> *taskListTitles = [[TaskManager sharedManager] taskListTitles];
+    NSString *selectedTaskListTitle = taskListTitles[indexPath.row];
+    
+    if ([selectedTaskListTitle isEqualToString:ALL_TASKS] || [selectedTaskListTitle isEqualToString:self.delegate.taskListTitle]) {
+        return NO;
+    } else {
+        return YES;
+    }
 }
-*/
 
-/*
-// Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+    
+    if (editingStyle != UITableViewCellEditingStyleDelete) {
+        return;
+    }
+    
+    NSArray <NSString *> *taskListTitles = [[TaskManager sharedManager] taskListTitles];
+    NSString *selectedTaskListTitle = taskListTitles[indexPath.row];
+    
+    UIAlertController *deleteConfirmationAlertController = [UIAlertController alertControllerWithTitle:@"Delete List"
+                                                                                               message:@"Deleting this list will delete all of its tasks."
+                                                                                        preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"Delete"
+                                                           style:UIAlertActionStyleDestructive
+                                                         handler:^(UIAlertAction * _Nonnull action) {
+                                                             [[TaskManager sharedManager] removeTaskListWithTitle:selectedTaskListTitle];
+                                                             [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                                                         }];
+    [deleteConfirmationAlertController addAction:deleteAction];
+
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:nil];
+    [deleteConfirmationAlertController addAction:cancelAction];
+    
+    [self presentViewController:deleteConfirmationAlertController animated:YES completion:nil];
 }
-*/
 
 /*
 // Override to support rearranging the table view.
