@@ -1,0 +1,25 @@
+Welcome to Tasks!
+
+• How do I create a task?
+First, navigate to the list that you want the task to be added to, then tap the '+' icon on the toolbar. To finish, enter a name, select a priority, and tap 'Add'.
+
+• How do I delete a task?
+First, navigate to the list where the task is stored, or navigate to All Lists. Next, tap the trash can icon in the toolbar, and then tap the red '-' icon on the task you want to delete. To finish, tap 'Delete'. Note: you can hide the red '-' icons by tapping the trash can again or navigating away from the list.
+
+• How do I edit a task?
+First, navigate to the list where the task is stored, and tap on the task you want to edit. When you have finished making your changes, tap the '<' button to return to the list.
+
+• What is an Uncategorized task?
+Uncategorized tasks only appear when viewing All Tasks. You won't find them in any other list. To add an Uncategorized task, navigate to All Tasks and follow the instructions in "How do I create a task?"
+
+• How do I switch lists?
+From any list, swipe sideways to move through your lists. You can also quickly jump to a different list by tapping the folder icon and then tapping the list you want to view.
+
+• How do I add a list?
+First, tap the folder icon to see your lists. To finish, tap the '+' icon, enter a title in the pop up that appears, and tap 'Add'.
+
+• How do I delete a list?
+If you're currently viewing the list you want to delete, navigate to a different list. Next, tap the folder icon to see your lists. To finish, swipe from right to left on the list you want to delete and tap 'Delete'. Note: you cannot delete All Tasks.
+
+• When is my data saved?
+Your data is saved automatically when you close the app. You can also manually save your data by tapping 'Save' in the toolbar.

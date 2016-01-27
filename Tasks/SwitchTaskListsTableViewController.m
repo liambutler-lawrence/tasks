@@ -90,7 +90,11 @@
     NSInteger selectedTaskListIndex = [taskListTitles indexOfObject:newTaskListTitle];
     
     NSIndexPath *newTaskListIndexPath = [NSIndexPath indexPathForRow:selectedTaskListIndex inSection:0]; // All task lists are presented in a single section
+    
+    self.delegate.taskListTitle = newTaskListTitle;
     [self.tableView insertRowsAtIndexPaths:@[newTaskListIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
 }
 
 - (void)newTaskListCreationFailed {

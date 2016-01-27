@@ -1,0 +1,30 @@
+Tasks
+Liam Butler-Lawrence
+JPMorgan Chase interview project
+
+
+
+Development notes:
+
+• All of the core feature requirements are implemented.
+
+• Regarding the requirement to implement “A tab-bar or way to swipe between various to-do lists/categories which the user can name”: I chose to use a combination of a gesture-enabled page view controller and a modal list switcher. A tab bar, while simpler to implement, would be very limiting in this scenario. I wanted to provide the ability for the user to add and remove custom lists. However, the tabs in a tab bar are generally expected to be static, and the stock interface when there are more than 5 tabs (the More tab) is less than desirable. In my implementation, the page view controller enables the required swipe gestures, and the modal list switcher allows for intuitive and easy list management.
+
+• I also implemented the challenge feature “Create a more elaborate loading option with tasks and categories (include convention/instruction)”. A custom plain-text markup syntax (detailed below) enables import of lists, tasks, and task priorities from text files.
+
+
+
+Plain-text markup syntax:
+
+• Place each task on a new line.
+
+• Specify task priority by following the task name with a '*' character and a priority specifier.
+• The valid priority specifiers are '0' (low), '1' (medium), and '2' (high).
+• Tasks without a specified priority (or with an invalid priority specifier) are given a priority of medium.
+
+• Place list titles on a new line, beginning with a '*' character.
+• Tasks following a list title are placed in that list.
+• Tasks following the list title 'All Tasks' are ignored.
+• Tasks preceding any list title are treated as 'Uncategorized'.
+
+• The '*' character cannot be used in a list title or task name.

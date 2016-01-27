@@ -10,6 +10,7 @@
 
 #import "TaskListTableViewController.h"
 #import "SwitchTaskListsTableViewController.h"
+#import "AppInformationViewController.h"
 #import "TaskPropertyListDataSource.h"
 
 @interface HomePageViewController : UIViewController <UIPageViewControllerDataSource, UIPageViewControllerDelegate, SwitchTaskListsTableViewControllerDelegate>

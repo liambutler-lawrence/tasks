@@ -30,13 +30,24 @@
                                                            style:UIAlertActionStyleDefault
                                                          handler:^(UIAlertAction * _Nonnull action) {
                                                              
+                                                             AppInformationViewController *faqInformationViewController = [[UIStoryboard mainStoryboard] instantiateViewControllerWithClassIdentifier:[AppInformationViewController class]];
+                                                             faqInformationViewController.informationType = AppInformationTypeFAQ;
+                                                             
+                                                             UINavigationController *faqInformationNavigationController = [[UINavigationController alloc] initWithRootViewController:faqInformationViewController];
+
+                                                             [self presentViewController:faqInformationNavigationController animated:YES completion:nil];
                                                          }];
     [infoActionSheet addAction:openFAQAction];
     
     UIAlertAction *openAboutAction = [UIAlertAction actionWithTitle:@"About"
                                                            style:UIAlertActionStyleDefault
                                                          handler:^(UIAlertAction * _Nonnull action) {
+                                                             AppInformationViewController *aboutInformationViewController = [[UIStoryboard mainStoryboard] instantiateViewControllerWithClassIdentifier:[AppInformationViewController class]];
+                                                             aboutInformationViewController.informationType = AppInformationTypeAbout;
                                                              
+                                                             UINavigationController *aboutInformationNavigationController = [[UINavigationController alloc] initWithRootViewController:aboutInformationViewController];
+                                                             
+                                                             [self presentViewController:aboutInformationNavigationController animated:YES completion:nil];
                                                          }];
     [infoActionSheet addAction:openAboutAction];
     

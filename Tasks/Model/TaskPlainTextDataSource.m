@@ -29,7 +29,13 @@
 - (TaskListObject *)readTasks {
     
     // get array containing each line in text file as NSString
-    NSString *taskDataString = [[NSString alloc] initWithContentsOfURL:self.plainTextURL encoding:NSUTF8StringEncoding error:nil];
+    NSError *dataReadError;
+    NSString *taskDataString = [[NSString alloc] initWithContentsOfURL:self.plainTextURL encoding:NSUTF8StringEncoding error:&dataReadError];
+    if (taskDataString == nil) {
+        NSLog(@"Failed to read tasks from text file at URL: %@. Error: %@", self.plainTextURL, dataReadError);
+        return nil;
+    }
+    
     NSArray<NSString *> *taskDataLines = [taskDataString componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
     
     
