@@ -41,7 +41,7 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="qdi-ck-lFW"/>
                                     <barButtonItem systemItem="trash" id="jN8-17-N8T">
                                         <connections>
-                                            <action selector="removeTaskButtonTapped:" destination="G6C-eg-Yj1" id="JLR-ml-okX"/>
+                                            <action selector="removeTasksButtonTapped:" destination="G6C-eg-Yj1" id="jGq-zA-u0i"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>

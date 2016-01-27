@@ -50,8 +50,13 @@
     [self presentViewController:createTaskNavigationController animated:YES completion:nil];
 }
 
-- (IBAction)removeTaskButtonTapped:(UIBarButtonItem *)sender {
-    
+- (IBAction)removeTasksButtonTapped:(UIBarButtonItem *)sender {
+    TaskListTableViewController *taskListTableViewController = self.pageViewController.viewControllers.firstObject;
+    if (taskListTableViewController.tableView.isEditing) {
+        [taskListTableViewController.tableView setEditing:NO animated:YES];
+    } else {
+        [taskListTableViewController.tableView setEditing:YES animated:YES];
+    }
 }
 
 - (IBAction)saveListButtonTapped:(UIBarButtonItem *)sender {
@@ -94,10 +99,11 @@
 
 - (UIViewController *)newViewControllerFromCurrentViewController: (UIViewController *)viewController direction: (UIPageViewControllerNavigationDirection)direction {
     
+    TaskListTableViewController *oldContentViewController = (TaskListTableViewController *)viewController;
     TaskListTableViewController *newContentViewController = [[UIStoryboard mainStoryboard] instantiateViewControllerWithClassIdentifier:[TaskListTableViewController class]];
-    
+        
     NSArray<NSString *> *taskListTitles = [[TaskManager sharedManager] taskListTitles];
-    NSInteger currentTitleIndex = [taskListTitles indexOfObject:((TaskListTableViewController *)viewController).taskListTitle];
+    NSInteger currentTitleIndex = [taskListTitles indexOfObject:oldContentViewController.taskListTitle];
     
     NSInteger newTitleIndex;
     switch (direction) {
@@ -125,7 +131,7 @@
 
 - (NSString *)taskListTitle {
     
-    TaskListTableViewController *viewController = (TaskListTableViewController *)self.pageViewController.viewControllers.firstObject;
+    TaskListTableViewController *viewController = self.pageViewController.viewControllers.firstObject;
     return viewController.taskListTitle;
 }
 

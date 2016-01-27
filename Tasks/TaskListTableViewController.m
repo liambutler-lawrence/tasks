@@ -23,6 +23,34 @@
     [self.tableView deselectRowAtIndexPath:selectedIndexPath animated:YES];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    [self.tableView setEditing:NO animated:YES];
+}
+
+
+#pragma mark - Task List Manipulation Methods
+
+- (void)deleteTaskAtIndexPath: (NSIndexPath *)indexPath {
+    
+    NSString *taskListTitle;
+    NSInteger taskIndex;
+    
+    if (self.taskListTitle == ALL_TASKS) {
+        NSDictionary *taskInfo = [[TaskManager sharedManager] taskListTitleAndTaskIndexForAllTasksIndex:indexPath.row];
+        taskListTitle = taskInfo[TASK_LIST_TITLE];
+        taskIndex = [(NSNumber *)taskInfo[TASK_INDEX] integerValue];
+    } else {
+        taskListTitle = self.taskListTitle;
+        taskIndex = indexPath.row;
+    }
+    
+    [[TaskManager sharedManager] removeTaskAtIndex:taskIndex fromTaskListWithTitle:taskListTitle];
+    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+
 #pragma mark - Table View
 
 #pragma mark Delegate
@@ -31,8 +59,15 @@
 
     TaskViewController *detailViewController = [[UIStoryboard mainStoryboard] instantiateViewControllerWithClassIdentifier:[TaskViewController class]];
     
-    detailViewController.taskListTitle = self.taskListTitle;
-    detailViewController.taskIndex = indexPath.row;
+    if (self.taskListTitle == ALL_TASKS) {
+        NSDictionary *taskInfo = [[TaskManager sharedManager] taskListTitleAndTaskIndexForAllTasksIndex:indexPath.row];
+        detailViewController.taskListTitle = taskInfo[TASK_LIST_TITLE];
+        detailViewController.taskIndex = [(NSNumber *)taskInfo[TASK_INDEX] integerValue];
+    } else {
+        detailViewController.taskListTitle = self.taskListTitle;
+        detailViewController.taskIndex = indexPath.row;
+    }
+
 
     [self.navigationController pushViewController:detailViewController animated:YES];
 }
@@ -64,15 +99,30 @@
             textColor = [UIColor redColor];
             break;
         case TaskPriorityMedium:
-            textColor = [UIColor yellowColor];
+            textColor = [UIColor orangeColor];
             break;
         case TaskPriorityLow:
-            textColor = [UIColor greenColor];
+            textColor = [UIColor brownColor];
             break;
     }
     cell.textLabel.textColor = textColor;
     
     return cell;
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (tableView.isEditing) {
+        return UITableViewCellEditingStyleDelete;
+    } else {
+        return UITableViewCellEditingStyleNone;
+    }
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [self deleteTaskAtIndexPath:indexPath];
+    }
 }
 
 @end
