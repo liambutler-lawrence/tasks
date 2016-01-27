@@ -8,11 +8,14 @@
 
 @import Foundation;
 
+
 typedef NS_ENUM(NSInteger, TaskPriority) {
     TaskPriorityLow,
     TaskPriorityMedium,
     TaskPriorityHigh
 };
+extern TaskPriority const TASK_PRIORITY_DEFAULT;
+
 
 @interface Task : NSObject
 

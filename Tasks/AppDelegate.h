@@ -8,6 +8,10 @@
 
 @import UIKit;
 
+#import "TaskManager.h"
+#import "TaskPropertyListDataSource.h"
+#import "TaskPlainTextDataSource.h"
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;

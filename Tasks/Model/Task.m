@@ -8,6 +8,10 @@
 
 #import "Task.h"
 
+
+TaskPriority const TASK_PRIORITY_DEFAULT = TaskPriorityMedium;
+
+
 @implementation Task
 
 - (instancetype)initWithName: (NSString *)name priority: (TaskPriority)priority {

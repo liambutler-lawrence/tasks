@@ -65,6 +65,7 @@ NSInteger const NEW_TASK = -1;
 - (void)setupCreateMode {
     
     self.navigationItem.title = @"New Task";
+    self.prioritySegmentedControl.selectedSegmentIndex = TASK_PRIORITY_DEFAULT;
     
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:@"Add" style:UIBarButtonItemStyleDone target:self action:@selector(addButtonTapped:)];
     addButton.enabled = NO;

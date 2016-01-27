@@ -22,6 +22,36 @@
 #pragma mark - Storyboard Actions
 
 - (IBAction)infoButtonTapped:(UIBarButtonItem *)sender {
+    
+    UIAlertController *infoActionSheet = [UIAlertController alertControllerWithTitle:nil
+                                                                             message:nil
+                                                                      preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *openFAQAction = [UIAlertAction actionWithTitle:@"FAQ"
+                                                           style:UIAlertActionStyleDefault
+                                                         handler:^(UIAlertAction * _Nonnull action) {
+                                                             
+                                                         }];
+    [infoActionSheet addAction:openFAQAction];
+    
+    UIAlertAction *openAboutAction = [UIAlertAction actionWithTitle:@"About"
+                                                           style:UIAlertActionStyleDefault
+                                                         handler:^(UIAlertAction * _Nonnull action) {
+                                                             
+                                                         }];
+    [infoActionSheet addAction:openAboutAction];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:nil];
+    [infoActionSheet addAction:cancelAction];
+    
+    // Action sheets display using popover controller on iPad
+    // Popover controller must be anchored to a UIBarButtonItem (or custom view)
+    if (infoActionSheet.popoverPresentationController != nil) {
+        infoActionSheet.popoverPresentationController.barButtonItem = sender;
+    }
+    
+    [self presentViewController:infoActionSheet animated:YES completion:nil];
 }
 
 - (IBAction)switchListsButtonTapped:(UIBarButtonItem *)sender {
@@ -51,6 +81,7 @@
 }
 
 - (IBAction)removeTasksButtonTapped:(UIBarButtonItem *)sender {
+    
     TaskListTableViewController *taskListTableViewController = self.pageViewController.viewControllers.firstObject;
     if (taskListTableViewController.tableView.isEditing) {
         [taskListTableViewController.tableView setEditing:NO animated:YES];
@@ -60,6 +91,8 @@
 }
 
 - (IBAction)saveListButtonTapped:(UIBarButtonItem *)sender {
+    
+    [[TaskManager sharedManager] saveTasksToDataSource:[TaskPropertyListDataSource defaultDataSource]];
 }
 
 #pragma mark - View Controller
@@ -158,27 +191,6 @@
         
         // The PageViewController must be given at least one initial view controller to display. View controllers displayed in response to right/left swipes are set above in the Page View Controller: Data Source section
         TaskListTableViewController *contentViewController = [[UIStoryboard mainStoryboard] instantiateViewControllerWithClassIdentifier:[TaskListTableViewController class]];
-        
-        
-        
-        // temporary test data input (to be removed when .plist import is implemented)
-        
-        NSString *taskListTitle = @"Work";
-        [[TaskManager sharedManager] addTaskListWithTitle:taskListTitle];
-        
-        Task *task = [[Task alloc] initWithName:@"Fix bugs" priority:TaskPriorityHigh];
-        [[TaskManager sharedManager] addTask:task toTaskListWithTitle:taskListTitle];
-        
-        Task *anotherTask = [[Task alloc] initWithName:@"Add new feature" priority:TaskPriorityLow];
-        [[TaskManager sharedManager] addTask:anotherTask toTaskListWithTitle:taskListTitle];
-        
-        
-        NSString *anotherTaskListTitle = @"Exercise";
-        [[TaskManager sharedManager] addTaskListWithTitle:anotherTaskListTitle];
-        
-        Task *yetAnotherTask = [[Task alloc] initWithName:@"Run 5K" priority:TaskPriorityMedium];
-        [[TaskManager sharedManager] addTask:yetAnotherTask toTaskListWithTitle:anotherTaskListTitle];
-        
         
         
         contentViewController.taskListTitle = ALL_TASKS;

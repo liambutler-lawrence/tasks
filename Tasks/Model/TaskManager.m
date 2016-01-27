@@ -8,13 +8,6 @@
 
 #import "TaskManager.h"
 
-NSString *const ALL_TASKS = @"All Tasks";
-NSString *const NO_LIST = @"Uncategorized";
-
-NSString *const TASK_LIST_TITLE = @"Task_List_Title";
-NSString *const TASK_INDEX = @"Task_Index";
-
-typedef NSMutableDictionary<NSString *, TaskList *> TaskListObject;
 
 
 @interface TaskManager ()
@@ -37,7 +30,6 @@ typedef NSMutableDictionary<NSString *, TaskList *> TaskListObject;
 }
 
 // Returns singleton instance
-// Always use the singleton instance; directly initializing an instance of this class might result in undefined behavior
 + (instancetype)sharedManager {
     static TaskManager *manager = nil;
     static dispatch_once_t onceToken;
@@ -178,6 +170,55 @@ typedef NSMutableDictionary<NSString *, TaskList *> TaskListObject;
     } else {
         [[self taskListWithTitle:title] addObject:task];
         return YES;
+    }
+
+}
+
+
+// "Batch import" task lists by passing an object that conforms to the TaskManagerDataSource protocol
+// If a specified task list already exists, its tasks are added to the existing list
+// Type-safe: invalid lists, lists with invalid keys (including ALL_LISTS), and invalid tasks are ignored
+- (void)addTasksFromDataSource: (NSObject <TaskManagerDataSource> *)dataSource {
+    TaskListObject *lists = [dataSource readTasks];
+    
+    // enumerate all lists in list object, verifying that each key and value is of correct class (and that list title is not ALL_TASKS)
+    [lists enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull listTitle, TaskList * _Nonnull taskList, BOOL * _Nonnull stop) {
+        if ([listTitle isKindOfClass:[NSString class]] && [taskList isKindOfClass:[NSArray class]] && ![listTitle isEqualToString:ALL_TASKS]) {
+            
+            // add task list if it not does not already exist
+            if ([self taskListWithTitle:listTitle] == nil) {
+                [self addTaskListWithTitle:listTitle];
+            }
+            
+            // enumerate all tasks in task list, verifying that each object is of correct class
+            for (Task *task in taskList) {
+                if ([task isMemberOfClass:[Task class]]) {
+                    
+                    // verify that task priority holds a valid value; if invalid, set to default priority
+                    if (task.priority != TaskPriorityLow &&
+                        task.priority != TaskPriorityMedium &&
+                        task.priority != TaskPriorityHigh) {
+                        
+                        task.priority = TASK_PRIORITY_DEFAULT;
+                    }
+                    
+                    // add task to task list
+                    [self addTask:task toTaskListWithTitle:listTitle];
+                }
+            }
+        }
+    }];
+}
+
+// "Batch save" task lists by passing an object that conforms to the TaskManagerDataSource protocol
+// Returns YES if data source supports write operations; NO if unsupported
+- (BOOL)saveTasksToDataSource: (NSObject <TaskManagerDataSource> *)dataSource {
+    
+    if ([dataSource respondsToSelector:@selector(writeTasks:)]) {
+        BOOL writeSuccess = [dataSource writeTasks:self.taskLists];
+        return writeSuccess;
+    } else {
+        return NO;
     }
 }
 

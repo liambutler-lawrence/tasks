@@ -8,16 +8,8 @@
 
 @import Foundation;
 #import "Task.h"
-
-
-typedef NSMutableArray<Task *> TaskList;
-
-extern NSString *const ALL_TASKS;
-extern NSString *const NO_LIST;
-
-extern NSString *const TASK_LIST_TITLE;
-extern NSString *const TASK_INDEX;
-
+#import "TaskManagerDataSource.h"
+#import "TaskManagerConstants.h"
 
 @interface TaskManager : NSObject
 
@@ -25,7 +17,6 @@ extern NSString *const TASK_INDEX;
 #pragma mark - Singleton instance
 
 // Returns singleton instance
-// Always use the singleton instance; directly initializing an instance of this class might result in undefined behavior
 + (instancetype)sharedManager;
 
 
@@ -75,5 +66,15 @@ extern NSString *const TASK_INDEX;
 // Passing NO_LIST for title will add an uncategorized task
 // Passing ALL_TASKS for title will always fail
 - (BOOL)addTask: (Task *)task toTaskListWithTitle: (NSString *)title;
+
+
+// "Batch import" task lists by passing an object that conforms to the TaskManagerDataSource protocol
+// If a specified task list already exists, its tasks are added to the existing list
+// Type-safe: invalid lists, lists with invalid keys (including ALL_LISTS), and invalid tasks are ignored
+- (void)addTasksFromDataSource: (NSObject <TaskManagerDataSource> *)dataSource;
+    
+// "Batch save" task lists by passing an object that conforms to the TaskManagerDataSource protocol
+// Returns YES if data source supports write operations; NO if unsupported
+- (BOOL)saveTasksToDataSource: (NSObject <TaskManagerDataSource> *)dataSource;
 
 @end
