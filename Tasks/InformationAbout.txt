@@ -2,6 +2,8 @@ Tasks
 Liam Butler-Lawrence
 JPMorgan Chase interview project
 
+Submitted Wed, Jan 27, 2016
+
 
 
 Development notes:
@@ -25,6 +27,6 @@ Plain-text markup syntax:
 • Place list titles on a new line, beginning with a '*' character.
 • Tasks following a list title are placed in that list.
 • Tasks following the list title 'All Tasks' are ignored.
-• Tasks preceding any list title are treated as 'Uncategorized'.
+• Tasks preceding all list titles are treated as 'Uncategorized'.
 
 • The '*' character cannot be used in a list title or task name.
