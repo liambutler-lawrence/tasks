@@ -105,6 +105,7 @@
             textColor = [UIColor brownColor];
             break;
     }
+    cell.accessibilityValue = [NSString stringWithFormat:@"%ld", task.priority];
     cell.textLabel.textColor = textColor;
     
     return cell;
