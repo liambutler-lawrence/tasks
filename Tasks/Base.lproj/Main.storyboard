@@ -213,9 +213,6 @@
                                     <segment title="Medium"/>
                                     <segment title="High"/>
                                 </segments>
-                                <connections>
-                                    <action selector="taskPrioritySegmentedControlTapped:" destination="p6X-4k-tiv" eventType="valueChanged" id="Ina-FR-aEn"/>
-                                </connections>
                             </segmentedControl>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="List" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NdC-z5-ryk">
                                 <rect key="frame" x="20" y="138" width="27.5" height="20.5"/>
