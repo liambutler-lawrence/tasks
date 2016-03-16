@@ -25,12 +25,8 @@ NSInteger const NEW_TASK = -1;
 
 #pragma mark - View Controller
 
-NSString *segmentedControlKeyPath = @"selectedSegmentIndex";
-
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [self.prioritySegmentedControl addObserver:self forKeyPath:segmentedControlKeyPath options:NSKeyValueObservingOptionNew context:nil];
     
     self.listTitleLabel.text = self.taskListTitle;
     
@@ -55,15 +51,6 @@ NSString *segmentedControlKeyPath = @"selectedSegmentIndex";
             task.name = self.nameTextField.text;
         }
         task.priority = self.prioritySegmentedControl.selectedSegmentIndex;
-    }
-    
-    [self.prioritySegmentedControl removeObserver:self forKeyPath:segmentedControlKeyPath];
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
-    if ([object isEqual:self.prioritySegmentedControl] && [keyPath isEqual:segmentedControlKeyPath]) {
-        self.prioritySegmentedControl.accessibilityValue = [NSString stringWithFormat:@"%ld", (long)self.prioritySegmentedControl.selectedSegmentIndex];
-        NSLog(@"%@", self.prioritySegmentedControl.accessibilityValue);
     }
 }
 
@@ -128,14 +115,14 @@ NSString *segmentedControlKeyPath = @"selectedSegmentIndex";
 
 - (IBAction)taskPrioritySegmentedControlTapped:(id)sender {
     /*if(self.prioritySegmentedControl.selectedSegmentIndex == 0) {
-     self.prioritySegmentedControl.accessibilityValue = 0;
-     } else if (self.prioritySegmentedControl.selectedSegmentIndex == 1) {
-     self.prioritySegmentedControl.accessibilityValue = 1;
-     } else {
-     self.prioritySegmentedControl.accessibilityValue = 2;
-     }*/
-    //    self.prioritySegmentedControl.accessibilityValue = [NSString stringWithFormat:@"%ld", (long)self.prioritySegmentedControl.selectedSegmentIndex];
-    //    NSLog(@"%@", self.prioritySegmentedControl.accessibilityValue);
+        self.prioritySegmentedControl.accessibilityValue = 0;
+    } else if (self.prioritySegmentedControl.selectedSegmentIndex == 1) {
+        self.prioritySegmentedControl.accessibilityValue = 1;
+    } else {
+        self.prioritySegmentedControl.accessibilityValue = 2;
+    }*/
+    self.prioritySegmentedControl.accessibilityValue = [NSString stringWithFormat:@"%ld", (long)self.prioritySegmentedControl.selectedSegmentIndex];
+    NSLog(@"%@", self.prioritySegmentedControl.accessibilityValue);
 }
 
 
