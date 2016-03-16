@@ -113,17 +113,4 @@ NSInteger const NEW_TASK = -1;
     return YES;
 }
 
-- (IBAction)taskPrioritySegmentedControlTapped:(id)sender {
-    /*if(self.prioritySegmentedControl.selectedSegmentIndex == 0) {
-        self.prioritySegmentedControl.accessibilityValue = 0;
-    } else if (self.prioritySegmentedControl.selectedSegmentIndex == 1) {
-        self.prioritySegmentedControl.accessibilityValue = 1;
-    } else {
-        self.prioritySegmentedControl.accessibilityValue = 2;
-    }*/
-    self.prioritySegmentedControl.accessibilityValue = [NSString stringWithFormat:@"%ld", (long)self.prioritySegmentedControl.selectedSegmentIndex];
-    NSLog(@"%@", self.prioritySegmentedControl.accessibilityValue);
-}
-
-
 @end
